@@ -135,9 +135,9 @@ class VibAuthor
 
     dsHandle.write("<payloads>")
     dsHandle.write("<payload name=\"#{@@vibData["name"]}\" type=\"tgz\" size=\"#{@@vibData["size"]}\">")
-    if @@vibOptions["checksum"]
+    if @@vibOptions["checksums"]
       dsHandle.write("<checksum checksum-type=\"sha-256\">#{@@vibData["PayloadChecksum_256"]}</checksum>")
-      dsHandle.write("<checksum checksum-type=\"sha-1\">#{@@vibData["PayloadChecksum_1"]}</checksum>")
+      dsHandle.write("<checksum checksum-type=\"sha-1\" verify-process=\"gunzip\">#{@@vibData["PayloadChecksum_1"]}</checksum>")
     end
     dsHandle.write("</payload>")
     dsHandle.write("</payloads>")
@@ -147,7 +147,7 @@ class VibAuthor
   end
 
   def checksum_b()
-    if @@vibOptions["checksum"]
+    if @@vibOptions["checksums"]
       cs = exec_local("sha256sum #{@@vibDirs["tmp"]}/#{@@vibOptions["name"]}.tgz",true,true)
       csHandle = File.open("#{@@vibDirs["tmp"]}/sha256sum.tmp","w")
       csHandle.write(cs)
