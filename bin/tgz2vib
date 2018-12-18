@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+require 'getoptlong'
+
+$myCommandName = "tgz2vib"
+$base_dir = File.dirname(File.dirname(File.dirname(__FILE__)))
+
+puts("Base: #{$base_dir}")
+
+$vibOpts = {}
+$vibOpts['tags'] = []
+
+require "#{$base_dir}/conf/tgz2vib.conf.rb"
+
+$logHandle = File.open("#{$logFile}","w+")
+
+require "#{$base_dir}/lib/parser/opts.rb"
+require "#{$base_dir}/lib/vib.rb"
+
+parse_opts()
+
+[ "output_dir", "work_dir", "name", "version", "vendor", "summary", "description" ].each do |req|
+  if $vibOpts[req].nil?
+    print_out("Required option: '#{req}' is missing")
+    end_process(2)
+  end
+end
+
+if $vibOpts["input_dir"].nil? && $vibOpts["input_file"].nil?
+    print_out("You must specify either --input-dir or --input-file")
+    end_process(2)
+end
+
+vibCreator = VibAuthor.new($vibOpts)
+vibCreator.run()
+
+end_process(0)
