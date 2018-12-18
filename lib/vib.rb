@@ -52,7 +52,7 @@ class VibAuthor
   end
 
   def createvib()
-    @@vibData["vibfile"] = "#{@@vibDirs["work"]}/#{@@vibData["name"]}-#{@@vibOptions["version"]}.x86_64.vib"
+    @@vibData["vibfile"] = "#{@@vibDirs["work"]}/#{@@vibOptions["name"]}-#{@@vibOptions["version"]}.x86_64.vib"
     if File.exist?(@@vibData["vibfile"])
       print_out("File: #{@@vibData["vibfile"]} already exists, will be deleted and re-created")
       FileUtils.rm(@@vibData["vibfile"])
