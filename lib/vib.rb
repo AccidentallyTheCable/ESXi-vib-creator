@@ -70,7 +70,7 @@ class VibAuthor
     print_out("Creating descriptor.xml")
     dsHandle = File.open("#{@@vibDirs["vib"]}/descriptor.xml","w")
     
-    dsHandle.write("<vib version=\"5.0\"><type>#{@@vibOptions["type"]}</type>")
+    dsHandle.write("<vib version=\"5.0\"><type>#{@@vibOptions["vibType"]}</type>")
     dsHandle.write("<name>#{@@vibData["name"]}</name>")
     dsHandle.write("<version>#{@@vibOptions["version"]}</version>")
     dsHandle.write("<vendor>#{@@vibOptions["vendor"]}</vendor>")
@@ -148,7 +148,9 @@ class VibAuthor
 
   def checksum_b()
     if @@vibOptions["checksums"]
-      cs = exec_local("sha256sum #{@@vibDirs["tmp"]}/#{@@vibOptions["name"]}.tgz",true,true)
+      cs = exec_local("sha256sum #{@@vibDirs["vib"]}/#{@@vibData["name"]}",true,true)
+      cs = cs.split(" ")
+      cs = cs[0]
       csHandle = File.open("#{@@vibDirs["tmp"]}/sha256sum.tmp","w")
       csHandle.write(cs)
       csHandle.close
@@ -157,9 +159,11 @@ class VibAuthor
   end
 
   def checksum_a()
-    if @@vibOptions["checksum"]
+    if @@vibOptions["checksums"]
       print_out("Calculating Checksum of OEM.tar")
-      cs = exec_local("sha1sum #{@@vibDirs["tmp"]}/oem.tar",true,true)
+      cs = exec_local("sha1sum #{@@vibDirs["tmp"]}/oem.tar | awk '{print $1;}'",true,true)
+      cs = cs.split(" ")
+      cs = cs[0]
       csHandle = File.open("#{@@vibDirs["tmp"]}/sha1sum.tmp","w")
       csHandle.write(cs)
       csHandle.close
