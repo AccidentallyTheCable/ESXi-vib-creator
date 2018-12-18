@@ -33,7 +33,7 @@ class VibAuthor
     self.checksum_a
     self.repack_b
     t = Time.now
-    @@vibData["release_date"] = t.strftime("+%Y-%m-%dT%H:%M:%S.000000+00:00")
+    @@vibData["release_date"] = t.strftime("%Y-%m-%dT%H:%M:%S.000000+00:00")
     FileUtils.copy("#{@@vibDirs["tmp"]}/oem.tgz", "#{@@vibDirs["vib"]}/#{@@vibData["name"]}")
     @@vibData["size"] = File.size?("#{@@vibDirs["vib"]}/#{@@vibData["name"]}")
     self.checksum_b
