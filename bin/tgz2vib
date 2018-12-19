@@ -3,7 +3,7 @@
 require 'getoptlong'
 
 $myCommandName = "tgz2vib"
-$base_dir = File.dirname(File.dirname(File.dirname(__FILE__)))
+$base_dir = File.expand_path(File.dirname(File.dirname(File.dirname(__FILE__))))
 
 puts("Base: #{$base_dir}")
 

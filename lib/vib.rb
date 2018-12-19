@@ -226,5 +226,8 @@ class VibAuthor
         Dir.mkdir(d)
       end
     end
+    if !Dir.exist?(@@vibOptions["output_dir"])
+      Dir.mkdir(@@vibOptions["output_dir"])
+    end
   end
 end
