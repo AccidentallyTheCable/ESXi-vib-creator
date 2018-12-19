@@ -12,6 +12,10 @@ $vibOpts['tags'] = []
 
 require "#{$base_dir}/conf/tgz2vib.conf.rb"
 
+if !Dir.exist?(File.expand_path(File.dirname($logFile)))
+  Dir.mkdir(File.expand_path(File.dirname($logFile)))
+end
+
 $logHandle = File.open("#{$logFile}","w+")
 
 require "#{$base_dir}/lib/parser/opts.rb"
