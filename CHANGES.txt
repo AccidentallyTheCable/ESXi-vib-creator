@@ -1,3 +1,6 @@
+v1.0.2 (2018-12-18):
+  - Minor fixes to allow running anywhere, fixed output dir, some other minor fixes
+
 v1.0.1 (2018-12-18):
   - Initial Commit, conversion of tgz2vib.cmd into ruby script with CLI flags
 
